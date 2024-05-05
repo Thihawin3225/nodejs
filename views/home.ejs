@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,  initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <h1>I am Home Page</h1>
+    <a href="/admin/create-post">Go to create Blog</a>
+    <hr />
+    <div>
+      <h2>post</h2>
+      <% if(postArr.length <= 0){ %>
+      <h2>Empty post</h2>
+      <% }%> <% for(let post of postArr){%>
+      <h4><%= post.title %></h4>
+      <a href="/post/<%= post.id %>">see more..</a>
+      <% } %>
+    </div>
+  </body>
+</html>

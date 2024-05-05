@@ -16,6 +16,11 @@ const {adminRoute} = require('./route/admin');
 
 app.use(bodyPraser.urlencoded({ extended: false }));
 
+
+// to use ejs
+app.set("view engine", "ejs");
+app.set("views", "views");
+
 //middle ware to check 
 app.use((req,res,next) => {
     console.log("i am middle ware one");
