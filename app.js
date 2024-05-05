@@ -9,6 +9,10 @@ const app = express();
 // to connect
 app.use(express.static(path.join(__dirname, "public")))
 
+const postRoute = require('./route/post');
+const adminRoute = require('./route/admin');
+
+
 //middle ware to check 
 app.use((req,res,next) => {
     console.log("i am middle ware one");
@@ -18,13 +22,9 @@ app.use("/post",(req,res,next) => {
     console.log("i am Post middleware");
     next();
 })
+app.use(postRoute);
+app.use("/admin",adminRoute);
 
-// routes 
-app.get("/",(req,res) => {
-    res.sendFile(path.join(__dirname,"views","index.html"))
-})
-app.get("/post", (req, res) => {
-    res.sendFile(path.join(__dirname,"views","post.html"))
-})
+
 //server listen
 app.listen(8080);
