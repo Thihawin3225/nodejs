@@ -1,5 +1,7 @@
 const express = require("express");
 
+const bodyPraser = require("body-parser");
+
 // to join 
 const path = require("path");
 
@@ -10,8 +12,9 @@ const app = express();
 app.use(express.static(path.join(__dirname, "public")))
 
 const postRoute = require('./route/post');
-const adminRoute = require('./route/admin');
+const {adminRoute} = require('./route/admin');
 
+app.use(bodyPraser.urlencoded({ extended: false }));
 
 //middle ware to check 
 app.use((req,res,next) => {
@@ -21,6 +24,10 @@ app.use((req,res,next) => {
 app.use("/post",(req,res,next) => {
     console.log("i am Post middleware");
     next();
+})
+app.use("/admin", (req, res,next) => {
+    console.log("Admin Prove!");
+    next()
 })
 app.use(postRoute);
 app.use("/admin",adminRoute);
