@@ -10,5 +10,9 @@
     <p><%= postArr.description %></p>
     <img src="<%= postArr.image_url %>" alt="err" />
     <p><%= postArr.image_url %></p>
+    <form action="/admin/post/<%= postArr.id %>" method="post">
+      <button>Delete</button>
+    </form>
+    <a href="/admin/post-edit/<%= postArr.id %>">Edit</a>
   </body>
 </html>

@@ -7,6 +7,7 @@ const post = require("../controller/post")
 
 // routes 
 routes.get("/", post.renderHomPage)
-routes.get("/post/:id", post.getDetail )
+routes.get("/post/:id", post.getDetail)
+
 
 module.exports = routes;
