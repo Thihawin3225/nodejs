@@ -7,11 +7,12 @@ exports.createPost = (req, res) => {
   });
 };
 exports.renderHomPage = (req, res) => {
-  Post.getAllPost().then(([rows]) => {
-      res.render("home", {
-        title: "home page",
-        postArr: rows,
-      });
+
+  Post.findAll().then((row) => {
+    res.render("home", {
+      title: "home page",
+      postArr: row,
+    });
   }).catch((err) => console.log(err));
 
 
@@ -19,23 +20,26 @@ exports.renderHomPage = (req, res) => {
 
 exports.addItem = (req, res) => {
   const { title, desc, photo } = req.body;
-  const posts = new Post(title, desc, photo);
-  posts.insertData().then((res) => {
+  Post.create({
+    title,
+   description : desc,
+   image_url : photo
+  }).then((data) => {
     console.log("Insert Successful");
+    res.redirect("/");
   }).catch((err) => {
     console.log(err);
   })
-  console.log(posts);
-  res.redirect("/");
+  
 };
 
 exports.getDetail = (req, res) => {
   const id = req.params.id;
-  Post.getSinglePost(id).then(([row]) => {
-    console.log(row[0]);
+  Post.findOne({ where: { id: id } }).then((row) => {
+    console.log(row);
     res.render("detail", {
       title: "detail page",
-      postArr: row[0],
+      postArr: row,
     });
   }).catch((err)=> console.log(err))
     

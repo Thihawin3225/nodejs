@@ -21,6 +21,8 @@ app.use(bodyPraser.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 app.set("views", "views");
 
+const sequelize = require('./util/database');
+
 //middle ware to check 
 app.use((req,res,next) => {
     console.log("i am middle ware one");
@@ -37,6 +39,12 @@ app.use("/admin", (req, res,next) => {
 app.use(postRoute);
 app.use("/admin",adminRoute);
 
-
+//testing database
+sequelize
+  .sync()
+  .then((res) => {
+      console.log("successful Connection");
+      app.listen(8080);
+  })
+  .catch((err) => console.log(err));
 //server listen
-app.listen(8080);
