@@ -28,10 +28,10 @@ exports.renderHomPage = (req, res) => {
 
 exports.addItem = (req, res) => {
   const { title, desc, photo } = req.body;
-  Post.create({
+  req.user.createPost({
     title,
    description : desc,
-   image_url : photo
+    image_url: photo,
   }).then((data) => {
     console.log("Insert Successful");
     res.redirect("/");

@@ -23,6 +23,15 @@ app.set("views", "views");
 
 const sequelize = require('./util/database');
 
+const Post = require("./model/post");
+const User = require("./model/user");
+// call user any where
+app.use((req, res, next) => {
+    User.findByPk(1).then((user) => {
+        req.user = user;
+        next();
+    }).catch((err)=> console.log(err))
+})
 //middle ware to check 
 app.use((req,res,next) => {
     console.log("i am middle ware one");
@@ -37,14 +46,28 @@ app.use("/admin", (req, res,next) => {
     next()
 })
 app.use(postRoute);
-app.use("/admin",adminRoute);
-
+app.use("/admin", adminRoute);
+//connect two database
+Post.belongsTo(User, {
+    constraints : true,
+  onDelete: "cascade",
+});
+User.hasMany(Post);
 //testing database
 sequelize
   .sync()
   .then((res) => {
-      console.log("successful Connection");
-      app.listen(8080);
+      User.findByPk(1).then((user)=> {
+          if (!user) {
+             return User.create({
+                  name: "Mg Mg",
+                  email : "abc@gmail.com"
+              })
+          }
+          return user;
+      })
+  }).then((suc) => {
+            app.listen(8080);
   })
   .catch((err) => console.log(err));
 //server listen
