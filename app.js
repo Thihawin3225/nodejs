@@ -8,6 +8,8 @@ const path = require("path");
 //create server
 const app = express();
 
+
+
 // to connect
 app.use(express.static(path.join(__dirname, "public")))
 
@@ -21,6 +23,7 @@ app.use(bodyPraser.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 app.set("views", "views");
 
+const mongodbConnector = require("./util/database")
 //middle ware to check 
 app.use((req,res,next) => {
     console.log("i am middle ware one");
@@ -37,6 +40,7 @@ app.use("/admin", (req, res,next) => {
 app.use(postRoute);
 app.use("/admin",adminRoute);
 
+mongodbConnector();
 
 //server listen
 app.listen(8080);
