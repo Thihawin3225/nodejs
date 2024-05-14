@@ -7,8 +7,15 @@
   </head>
   <body>
     <h1><%= postArr.title %></h1>
-    <p><%= postArr.desc %></p>
-    <img src="<%= postArr.photo %>" alt="" />
-    <p><%= postArr.photo %></p>
+    <p><%= postArr.description %></p>
+    <img src="<%= postArr.imageUrl %>" alt="" />
+    <p><%= postArr.imageUrl %></p>
+
+    <form action="/admin/edit-post/<%= postArr._id %>" method="post">
+      <button>Edit</button>
+    </form>
+    <form action="/admin/delete-post/<%= postArr._id %>" method="post">
+      <button>Delete</button>
+    </form>
   </body>
 </html>

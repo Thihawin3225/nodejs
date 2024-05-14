@@ -23,7 +23,7 @@ app.use(bodyPraser.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 app.set("views", "views");
 
-const mongodbConnector = require("./util/database")
+const {mongodbConnector} = require("./util/database")
 //middle ware to check 
 app.use((req,res,next) => {
     console.log("i am middle ware one");
