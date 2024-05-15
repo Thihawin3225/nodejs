@@ -16,6 +16,7 @@
       <h2>Empty post</h2>
       <% }%> <% for(let post of postArr){%>
       <h4><%= post.title %></h4>
+      <p>Post By @<%= post.userId.userName %></p>
       <a href="/post/<%= post._id %>">see more..</a>
       <% } %>
     </div>

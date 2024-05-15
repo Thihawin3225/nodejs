@@ -5,7 +5,9 @@ exports.createPost = (req, res) => {
   });
 };
 exports.renderHomPage = (req, res) => {
-  Post.find().sort({title : 1}).then((post) => {
+  Post.find().populate("userId","userName").select("title")
+    .sort({ title: 1 }).then((post) => {
+    console.log(post);
     res.render("home", {
       title: "home page",
       postArr : post
@@ -15,9 +17,10 @@ exports.renderHomPage = (req, res) => {
 };
 
 exports.addItem = (req, res) => {
-  const { title, desc , photo } = req.body;
+  const { title, desc, photo } = req.body;
+  console.log(req.user);
   Post.create({
-    title,description : desc , imageUrl : photo
+    title, description: desc, imageUrl: photo, userId : req.user
   }).then(() => {
     res.redirect("/")
   }).catch((err) => {
