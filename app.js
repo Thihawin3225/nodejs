@@ -9,13 +9,13 @@ const path = require("path");
 const app = express();
 
 
-
+const mongoose = require('mongoose');
 // to connect
 app.use(express.static(path.join(__dirname, "public")))
 
 const postRoute = require('./route/post');
 const {adminRoute} = require('./route/admin');
-
+const dotenv = require("dotenv").config();
 app.use(bodyPraser.urlencoded({ extended: false }));
 
 
@@ -23,24 +23,12 @@ app.use(bodyPraser.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 app.set("views", "views");
 
-const {mongodbConnector} = require("./util/database")
-//middle ware to check 
-app.use((req,res,next) => {
-    console.log("i am middle ware one");
-    next();
-})
-app.use("/post",(req,res,next) => {
-    console.log("i am Post middleware");
-    next();
-})
-app.use("/admin", (req, res,next) => {
-    console.log("Admin Prove!");
-    next()
-})
+
 app.use(postRoute);
 app.use("/admin",adminRoute);
 
-mongodbConnector();
-
+mongoose.connect(process.env.MONGODB_URL).then(() => {
+    app.listen(8080);
+    console.log("Database connected with mongoose");
+}).catch((err)=> console.log(err));
 //server listen
-app.listen(8080);
