@@ -20,7 +20,7 @@ const {adminRoute} = require('./route/admin');
 const dotenv = require("dotenv").config();
 app.use(bodyPraser.urlencoded({ extended: false }));
 
-
+const authRoute = require("./route/auth")
 // to use ejs
 app.set("view engine", "ejs");
 app.set("views", "views");
@@ -33,6 +33,8 @@ app.use((req, res, next) => {
     })
     
 })
+
+app.use(authRoute);
 app.use(postRoute);
 app.use("/admin",adminRoute);
 

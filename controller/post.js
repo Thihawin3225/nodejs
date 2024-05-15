@@ -5,12 +5,15 @@ exports.createPost = (req, res) => {
   });
 };
 exports.renderHomPage = (req, res) => {
+  const cookie = req.get("Cookie").split("=")[1] === 'true';
+  console.log(cookie);
   Post.find().populate("userId","userName").select("title")
     .sort({ title: 1 }).then((post) => {
     console.log(post);
     res.render("home", {
       title: "home page",
-      postArr : post
+      postArr: post,
+      isLogin: cookie
     })
   }).catch((err)=> console.log(err))
   

@@ -8,7 +8,11 @@
   </head>
   <body>
     <h1>I am Home Page</h1>
+    <% if(isLogin) {%>
     <a href="/admin/create-post">Go to create Blog</a>
+    <% } else { %>
+    <a href="/login">create new Account</a>
+    <% } %>
     <hr />
     <div>
       <h2>post</h2>
