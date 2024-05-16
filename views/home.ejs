@@ -10,8 +10,12 @@
     <h1>I am Home Page</h1>
     <% if(isLogin) {%>
     <a href="/admin/create-post">Go to create Blog</a>
+    <form action="/logout" method="post">
+      <input hidden value="<%= csrfToken %>" name="_csrf" />
+      <button>logout</button>
+    </form>
     <% } else { %>
-    <a href="/login">create new Account</a>
+    <a href="/register">create new Account</a>
     <% } %>
     <hr />
     <div>
@@ -20,7 +24,7 @@
       <h2>Empty post</h2>
       <% }%> <% for(let post of postArr){%>
       <h4><%= post.title %></h4>
-      <p>Post By @<%= post.userId.userName %></p>
+      <span>Post By @<%= post.userId.name %></span>
       <a href="/post/<%= post._id %>">see more..</a>
       <% } %>
     </div>

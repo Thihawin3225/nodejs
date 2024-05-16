@@ -3,15 +3,7 @@ const mongoose = require("mongoose")
 const { Schema, model } = mongoose;
 
 const userSchema = new Schema({
-  userName: {
-    type: String,
-    unique: true,
-        required: true,
-        minLength: 4,
-    maxLength : 15
-  },
-
-  email: {
+  name: {
     type: String,
     unique: true,
     required: true,

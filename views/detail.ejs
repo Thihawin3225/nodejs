@@ -12,9 +12,11 @@
     <p><%= postArr.imageUrl %></p>
 
     <form action="/admin/edit-post/<%= postArr._id %>" method="post">
+      <input hidden value="<%= csrfToken %>" name="_csrf" />
       <button>Edit</button>
     </form>
     <form action="/admin/delete-post/<%= postArr._id %>" method="post">
+      <input hidden value="<%= csrfToken %>" name="_csrf" />
       <button>Delete</button>
     </form>
   </body>
