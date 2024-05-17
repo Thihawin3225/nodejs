@@ -11,9 +11,10 @@ const app = express();
 const session = require("express-session")
 const mongoose = require('mongoose');
 
+
 const csrf = require("csurf");
 const csrfProtect = csrf();
-
+const flash = require('connect-flash');
 const mongodbStore = require("connect-mongodb-session")(session);
 
 
@@ -48,7 +49,7 @@ app.use(
 );
 
 
-
+app.use(flash());
 app.use(csrfProtect);
 app.use((req, res,next) => {
   res.locals.csrfToken = req.csrfToken();
