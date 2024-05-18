@@ -11,6 +11,7 @@ exports.renderHomPage = (req, res) => {
     res.render("home", {
       title: "home page",
       postArr: post,
+      currentUser : req.user ? req.user.name : ""
     })
   }).catch((err)=> console.log(err))
   
@@ -33,6 +34,7 @@ exports.getDetail = (req, res) => {
       res.render("detail", {
         title: "detail page",
         postArr: result,
+        currentUser: req.user ? req.user._id : ""
       });
     }).catch((err)=> console.log(err))
     
@@ -42,12 +44,15 @@ exports.getDetail = (req, res) => {
 exports.updateItem = (req, res) => {
   const { title, description, imageUrl, id } = req.body;
   Post.findById(id).then((post) => {
+    if(post.userId.toString() !== req.user._id.toString()) {
+      return res.redirect("/");
+    }
     post.title = title;
-      post.description = description;
+    post.description = description;
     post.imageUrl = imageUrl;
-    return post.save()
-  }).then((result) => {
-    res.redirect("/")
+    return post.save().then((result) => {
+      res.redirect("/");
+    });
   })
     .catch((err) => console.log(err))
 }
@@ -64,7 +69,8 @@ exports.getDataById = (req, res) => {
 
 exports.getRemoveById = (req, res) => {
   const id = req.params.postId;
-  Post.findByIdAndDelete(id).then(() => {
+  Post.deleteOne({_id : id , userId : req.user._id}).then(() => {
     res.redirect("/");
   }).catch((err)=> console.log(err))
 }
+

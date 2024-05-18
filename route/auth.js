@@ -11,6 +11,11 @@ routes.get("/register", authController.renderRegisterPage)
 
 routes.post("/register", authController.haldleRegister);
 
+routes.get("/reset-password", authController.renderResetPassword)
+routes.post("/reset-password", authController.resetLinkSend)
 
+routes.get("/feedback", authController.renderFeedBack)
+routes.get("/reset-password/:token", authController.renderNewpassword);
 module.exports = routes;
 
+routes.post("/new-password",authController.changeNewPassword)

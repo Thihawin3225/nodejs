@@ -13,9 +13,13 @@
     <form action="/logout" method="post">
       <input hidden value="<%= csrfToken %>" name="_csrf" />
       <button>logout</button>
+      <p>Profile <%= currentUser %></p>
     </form>
+    <a href="/login">login</a>
     <% } else { %>
-    <a href="/register">create new Account</a>
+    <a href="/register">register</a>
+    <div></div>
+    <a href="/login">login</a>
     <% } %>
     <hr />
     <div>

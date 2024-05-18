@@ -10,7 +10,7 @@
     <p><%= postArr.description %></p>
     <img src="<%= postArr.imageUrl %>" alt="" />
     <p><%= postArr.imageUrl %></p>
-
+    <% if(postArr.userId.toString() === currentUser.toString()) {%>
     <form action="/admin/edit-post/<%= postArr._id %>" method="post">
       <input hidden value="<%= csrfToken %>" name="_csrf" />
       <button>Edit</button>
@@ -19,5 +19,6 @@
       <input hidden value="<%= csrfToken %>" name="_csrf" />
       <button>Delete</button>
     </form>
+    <% } %>
   </body>
 </html>

@@ -8,6 +8,7 @@
   <body>
     <h1>Add new Blog</h1>
     <form action="/admin/edit-post" method="post">
+      <input hidden value="<%= csrfToken %>" name="_csrf" />
       <input type="hidden" name="id" value="<%= data._id %>" />
       <div>
         <label for="">title</label>

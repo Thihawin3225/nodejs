@@ -11,10 +11,10 @@ const userSchema = new Schema({
 
   password: {
     type: String,
-    unique: true,
-      required: true,
-    minLength :  4
+    required: true,
   },
+  resetToken: String,
+  tokenExipred : Date,
 });
 
 module.exports = model("User", userSchema);

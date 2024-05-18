@@ -5,26 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= title %></title>
   </head>
-  <style>
-    .msg {
-      border: 1px solid blue;
-    }
-  </style>
   <body>
-    <form action="/login" method="post">
+    <form action="/reset-password" method="post">
       <% if(message.length) {%>
       <p class="msg"><%= message%></p>
       <% }%>
-
       <input hidden value="<%= csrfToken %>" name="_csrf" />
+
       <div>
         <input type="email" name="name" id="" />
       </div>
-      <div>
-        <input type="password" name="password" id="" />
-      </div>
-      <a href="/reset-password"> Reset Password </a>
-      <button>Login</button>
+      <button>Reset Password</button>
     </form>
   </body>
 </html>
